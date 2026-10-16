@@ -1,0 +1,103 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Scan {
+  id                String    @id @default(cuid())
+  projectName       String
+  scannerType       String
+  fileName          String
+  fileSize          String
+  uploadedAt        DateTime  @default(now())
+  status            String    @default("COMPLETED")
+  isDemo            Boolean   @default(false)
+  demoId            String?
+  totalFindings     Int       @default(0)
+  criticalHighCount Int       @default(0)
+  fixableCount      Int       @default(0)
+  fixablePercent    Float     @default(0)
+  avgScore          Float     @default(0)
+  p0Count           Int       @default(0)
+  p1Count           Int       @default(0)
+  p2Count           Int       @default(0)
+  p3Count           Int       @default(0)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  findings          Finding[]
+
+  @@index([uploadedAt])
+  @@index([isDemo])
+}
+
+model Finding {
+  id              String                    @id @default(cuid())
+  scanId          String
+  scan            Scan                      @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  rank            Int                       @default(1)
+  library         String
+  version         String
+  cveId           String
+  severity        String                    @default("MEDIUM")
+  cvss            Float                     @default(5.0)
+  cvssSource      String                    @default("REPORTED_CVSS")
+  cvssVector      String?
+  description     String
+  affectedRange   String?
+  dependencyPath  String
+  createdAt       DateTime                  @default(now())
+
+  dependencyContext DependencyContext?
+  remediation       RemediationRecommendation?
+
+  @@unique([scanId, library, version, cveId])
+  @@index([scanId])
+  @@index([severity])
+  @@index([cveId])
+}
+
+model DependencyContext {
+  id                   String   @id @default(cuid())
+  findingId            String   @unique
+  finding              Finding  @relation(fields: [findingId], references: [id], onDelete: Cascade)
+  isDirect             Boolean  @default(true)
+  isProduction         Boolean  @default(true)
+  exposureLabel        String   @default("DIRECT / PRODUCTION")
+  exposureSource       String   @default("REPORTED")
+  dependencyPath       String
+  reachabilityEvidence String?
+  createdAt            DateTime @default(now())
+}
+
+model RemediationRecommendation {
+  id                      String   @id @default(cuid())
+  findingId               String   @unique
+  finding                 Finding  @relation(fields: [findingId], references: [id], onDelete: Cascade)
+  fixAvailable            Boolean  @default(false)
+  fixVersion              String?
+  actionTitle             String
+  upgradeCommand          String
+  ecosystem               String   @default("generic")
+  semverJumpType          String   @default("UNKNOWN")
+  semverJumpLabel         String   @default("Unknown")
+  semverWarningLevel      String   @default("info")
+  semverNotice            String
+  priorityTier            String   @default("P3")
+  priorityTierLabel       String   @default("P3 - Low")
+  priorityScore           Float    @default(0)
+  sla                     String   @default("Triage in quarterly maintenance")
+  scoreCvssPoints         Float    @default(0)
+  scoreReachabilityPoints Float    @default(0)
+  scoreExploitPoints      Float    @default(0)
+  scorePatchPoints        Float    @default(0)
+  scoreRationale          String
+  confidenceLevel         String   @default("HIGH")
+  isEstimated             Boolean  @default(false)
+  humanReviewNotice       String
+  createdAt               DateTime @default(now())
+}

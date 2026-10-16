@@ -1,0 +1,5 @@
+
+package_name,current_version,cve_id,cvss,installed_version,fixed_version,severity
+lodash,4.17.15,CVE-2020-8203,7.4,4.17.15,4.17.21,High
+jsonwebtoken,8.5.1,CVE-2022-23529,7.6,8.5.1,9.0.0,High
+axios,0.21.0,CVE-2020-28168,5.9,0.21.0,0.21.1,Medium

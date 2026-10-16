@@ -1,0 +1,16 @@
+library,version,cve_id,severity,cvss,fix_version,fix_available,exposure,description
+log4j-core,2.14.1,CVE-2021-44228,CRITICAL,10.0,2.17.1,True,DIRECT / PRODUCTION,Remote Code Execution via JNDI LDAP lookup in Log4j 2.x
+spring-beans,5.3.17,CVE-2022-22965,CRITICAL,9.8,5.3.18,True,DIRECT / PRODUCTION,Spring4Shell Remote Code Execution via Data Binding ClassLoader
+lodash,4.17.15,CVE-2020-8203,HIGH,7.4,4.17.21,True,DIRECT / PRODUCTION,Prototype Pollution via zipObjectDeep allowing property injection
+axios,0.21.0,CVE-2020-28168,MEDIUM,5.9,0.21.1,True,DIRECT / PRODUCTION,Server-Side Request Forgery (SSRF) bypass through relative URL handling
+pillow,8.1.0,CVE-2021-25290,HIGH,7.5,8.1.2,True,DIRECT / PRODUCTION,Buffer Overflow in TIFF processing leading to potential code execution
+pyyaml,5.3.1,CVE-2020-14343,CRITICAL,9.8,5.4.0,True,TRANSITIVE / PRODUCTION,Arbitrary Code Execution through FullLoader deserialization
+openssl,1.1.1k,CVE-2022-0778,HIGH,7.5,1.1.1n,True,DIRECT / PRODUCTION,Infinite loop in BN_mod_sqrt() leading to Denial of Service (DoS)
+express,4.16.0,CVE-2022-24999,MEDIUM,5.3,4.17.3,True,DIRECT / PRODUCTION,QS module prototype pollution within body parsing
+mocha,7.0.0,CVE-2020-36632,MEDIUM,4.3,8.0.0,True,DIRECT / DEV,Prototype pollution in test runner reporter helper
+jsonwebtoken,8.5.1,CVE-2022-23529,HIGH,7.6,9.0.0,True,DIRECT / PRODUCTION,Insecure key retrieval allowing arbitrary file write via crafted secret
+minimist,1.2.0,CVE-2020-7598,HIGH,7.5,1.2.6,True,TRANSITIVE / DEV,Prototype Pollution through parse method in CLI argument parser
+jackson-databind,2.9.8,CVE-2019-12384,HIGH,8.8,2.9.10.8,True,TRANSITIVE / PRODUCTION,Polymorphic typing flaw allowing Server-Side Request Forgery / RCE
+urllib3,1.26.4,CVE-2021-33503,MEDIUM,5.3,1.26.5,True,DIRECT / PRODUCTION,ReDoS vulnerability in URL parser regex matching
+redis-py,3.5.3,CVE-2023-28859,MEDIUM,5.5,,False,DIRECT / PRODUCTION,Race condition leading to unauthorized connection reuse (No patch yet)
+eslint,7.32.0,CVE-2021-23450,LOW,3.3,8.0.0,True,TRANSITIVE / DEV,Regex denial of service in linter rule utility
